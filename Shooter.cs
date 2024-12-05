@@ -5,7 +5,6 @@ public class Shooter : MonoBehaviour
 {
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private Transform _target;
-    [SerializeField] private float _speed = 10;
     [SerializeField] private float _delay = 2f;
 
     private WaitForSeconds _wait;
@@ -20,10 +19,8 @@ public class Shooter : MonoBehaviour
     {
         while (true)
         {
-            Vector3 direction = (_target.position - transform.position).normalized;
             var newBullet = Instantiate(_bulletPrefab, transform.position , Quaternion.identity);
-            newBullet.Rigidbody.transform.up = direction;
-            newBullet.Rigidbody.velocity = direction * _speed;
+            newBullet.Init((_target.position - transform.position).normalized);
             
             yield return _wait;
         }
